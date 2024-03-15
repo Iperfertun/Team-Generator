@@ -62,7 +62,7 @@ function initApp() {
             {
                 type: "input",
                 name: "managerOfficeNumber",
-                message: "What's the manager's office number? (format: 111111111)",
+                message: "What's the manager's office number? (format: 10111111)",
                 validate: answer => {
                     const pass = answer.match(
                         /^[1-9]\d*$/
