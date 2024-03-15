@@ -5,4 +5,7 @@ const jest = require('jest');
 const inquirer = require('inquirer');
 
 //constructors 
-const manager = require()
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const Employee = require('./lib/Employee');
