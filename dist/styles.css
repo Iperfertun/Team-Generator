@@ -1,0 +1,66 @@
+/* Google fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
+/* Normailing styling */
+body {
+    font-family: "Oswald", 'sans-serif';
+  }
+  
+  a {
+    color: #4208b4;
+    text-decoration: none;
+  }
+   /*hover*/
+  a:hover {
+    color: #45555a;
+    text-decoration: none;
+  }
+   /*header*/
+  .jumbotron {
+    background-color: #dc0b0b;
+  }
+   
+  /*body*/
+  .main-section {
+    flex-wrap: wrap;
+    margin: 2em auto;
+  }
+  
+  .employee-card {
+    margin: 1em;
+    max-width: 300px;
+    width: 100%;
+    color: white;
+    display: flex;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    border: none;
+  }
+  
+  .manager-card {
+    background-color: #d69208;
+  }
+  
+  .engineer-card {
+    background-color: #2706aa;
+  }
+  
+  .intern-card {
+    background-color: #3ee06f;
+  }
+  
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  .box {
+    position: relative;
+    height:  400px;
+    width: 380px;
+    display: block;
+    background: linear-gradient(0deg, black, #444444);
+  }
+  
