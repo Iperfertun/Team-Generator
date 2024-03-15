@@ -97,4 +97,30 @@ function initApp() {
         });
     }
 
-    
+     // add Engineer when selected 
+     function addEngineer() {
+        inquirer.prompt([
+            {
+                type: "input", 
+                name: "engineerName",
+                message: "what is the engineer's name?",
+                validate:answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Engineer's name can't be left empty.";
+                }
+            },
+            {
+                type:"input", 
+                name: "engineerId", 
+                message: "what is the engineer's id?", 
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                }
+                ]
+            }
+        ])
+     }
