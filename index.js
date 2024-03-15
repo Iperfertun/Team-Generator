@@ -13,7 +13,7 @@ const Employee = require('./lib/Employee');
 
 const DIST_DIR = path.resolve(__dirname, 'dist')
 const outputPath = path.join(DIST_DIR, 'index.html');
-const render = require('./src/page.js');
+const render = require('./src/page-template.js');
 
 // Arrays for teams and id as place holders
 const teamArr = [];
@@ -21,6 +21,7 @@ const idArr = [];
 
 //Start application 
 function initApp() {
+
         //prompt id use for manager
         function addManager() {
             console.log("Start building your team profile");
@@ -35,42 +36,52 @@ function initApp() {
                     }
                     return "Please enter the team's manager's name.";
                 }
-              },
-              {
-                    type: "input",
-                    name: "managerId", 
-                    message: "what is the manager's ID?",
-                    validate: answer => {
-                        if (answer !=="") {
-                            return true;
-                        }
-                        return "Email can't be untenanted.";
+            },
+            {
+                type: "input",
+                name: "managerId",
+                message: "What's the manager's ID?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
                     }
-              },
-              {
-                    type: "input", 
-                    name: "managerOfficalNumber",
-                    message: "what is the manager's office Contact? (format: +4424111113)", 
-                    validate: answer => {
-                        const pass =amswer.match (
-                            /^[1-9]\d*$/
-                        );
-                        if (pass) {
-                            return true;
-                        }
-                        return "please enter a correct phone number.";
-                    } 
-              }
-            ]).then(answers => {
-                const manager = new manager(answer.managerName, answer.managerId, answers.managerEmail, answers.managerOfficeNumber);
-                teamArr.push(manager); 
-                idArr.push(answers.managerId);
-                addTeam();
-            });
-        }
+                    return "Please enter a valid Manager's ID.";
+                }
+            },
+            {
+                type: "input",
+                name: "managerEmail",
+                message: "What's the manager's email?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Email address can't be empty.";
+                }
+            },
+            {
+                type: "input",
+                name: "managerOfficeNumber",
+                message: "What's the manager's office number? (format: 111111111)",
+                validate: answer => {
+                    const pass = answer.match(
+                        /^[1-9]\d*$/
+                    );
+                    if (pass) {
+                        return true;
+                    }
+                    return "Please enter a correct phone number.";
+                }
+            }
+        ]).then(answers => {
+            const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber);
+            teamArr.push(manager);
+            idArr.push(answers.managerId);
+            addTeam();
+        });
     }
-      
-    // Addteam  function to the manager
+
+    // addTeam function after finish with addManager
     function addTeam() {
         inquirer.prompt([
             {
@@ -93,18 +104,18 @@ function initApp() {
                     break;
                 default:
                     generateHTML();
-              }
+            }
         });
     }
 
-     // add Engineer when selected 
-     function addEngineer() {
+    // add an Engineer when selected
+    function addEngineer() {
         inquirer.prompt([
             {
-                type: "input", 
+                type: "input",
                 name: "engineerName",
-                message: "what is the engineer's name?",
-                validate:answer => {
+                message: "What's the engineer's name?",
+                validate: answer => {
                     if (answer !== "") {
                         return true;
                     }
@@ -112,15 +123,113 @@ function initApp() {
                 }
             },
             {
-                type:"input", 
-                name: "engineerId", 
-                message: "what is the engineer's id?", 
+                type: "input",
+                name: "engineerId",
+                message: "What's the engineer's id?",
                 validate: answer => {
                     if (answer !== "") {
                         return true;
                     }
+                    return "Please enter a valid Engineer's ID.";
                 }
-                ]
+            },
+            {
+                type: "input",
+                name: "engineerEmail",
+                message: "What's the engineer's email?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Email address can't be empty.";
+                }
+            },
+            {
+                type: "input",
+                name: "engineerGithub",
+                message: "What's the engineer's GitHub username?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Please enter the engineer's GitHub username.";
+                }
             }
-        ])
-     }
+        ]).then(answers => {
+            const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
+            teamArr.push(engineer);
+            idArr.push(answers.engineerId);
+            addTeam();
+        });
+    }
+
+    // Add an Intern when selected
+    function addIntern() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "internName",
+                message: "What's the intern's name?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Please enter at least one character.";
+                }
+            },
+            {
+                type: "input",
+                name: "internId",
+                message: "What's the intern's id?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Please enter a valid Intern's ID.";
+                }
+            },
+            {
+                type: "input",
+                name: "internEmail",
+                message: "What's the intern's email?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Email address can't be empty.";
+                }
+            },
+            {
+                type: "input",
+                name: "internSchool",
+                message: "What's the intern's school?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Please enter a correct school.";
+                }
+            }
+
+        ]).then(answers => {
+            const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
+            teamArr.push(intern);
+            idArr.push(answers.internId);
+            addTeam();
+        });
+    }
+    
+    function generateHTML() {
+
+        // Create dist directory for index.html if it doesnt exist
+        if (!fs.existsSync(DIST_DIR)) {
+            fs.mkdirSync(DIST_DIR)
+        }
+        console.log("Generating Team Profile.... ");
+        fs.writeFileSync(outputPath, render(teamArr), "utf-8");
+    }
+
+    addManager();
+}
+
+initApp();
